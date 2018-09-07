@@ -25,6 +25,8 @@ import rosegraphics as rg
 #        -- IN the loop?
 #        -- AFTER the loop?
 # ----------------------------------------------------------------------
+
+
 def main():
     """ Calls the   TEST   functions in this module. """
     run_test_draw_parallel_lines()
@@ -96,7 +98,7 @@ def draw_parallel_lines(n, point, length, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -109,6 +111,12 @@ def draw_parallel_lines(n, point, length, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ####################################################################
     # ------------------------------------------------------------------
+    for _ in range(n):
+        point_end = rg.Point(point.x + length, point.y)
+        line = rg.Line(point, point_end)
+        point.y = point.y + 30
+        line.attach_to(window)
+    window.render()
 
 
 def run_test_draw_lines():
@@ -161,7 +169,7 @@ def draw_lines(n, point, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -174,7 +182,23 @@ def draw_lines(n, point, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ####################################################################
     # ------------------------------------------------------------------
+    variation = 200 / (n-1)
+    increment = variation
+    for k in range(n):
+        point_start = rg.Point(point.x, point.y)
+        point_end = rg.Point(point.x, point.y)
 
+        if k != 0:
+            point_end.y = point_end.y + variation - 100
+            point_end.x = point_end.x + 100
+            variation = variation + increment
+        else:
+            point_end.y = point_end.y - 100
+            point_end.x = point_end.x + 100
+
+        line = rg.Line(point_start, point_end)
+        line.attach_to(window)
+    window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
